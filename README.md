@@ -8,8 +8,8 @@ A secure, scalable, and role-based web platform connecting customers and sellers
 
 | Name | Role |
 |---|---|
-| **Fatima** | Team Leader & System Architect |
-| **Rimsha Amjad** | Quality Assurance & Documentation Lead |
+| **Fatima** | Team Leader & System Architect & Backend & Database Developer|
+| **Rimsha Amjad** | Frontend Developer & Quality Assurance & Documentation Lead |
 
 ---
 
