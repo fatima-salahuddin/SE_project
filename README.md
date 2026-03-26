@@ -9,8 +9,6 @@ A secure, scalable, and role-based web platform connecting customers and sellers
 | Name | Role |
 |---|---|
 | **Fatima** | Team Leader & System Architect |
-| **Aniqua Haseen** | Frontend Developer |
-| **Aiza Gazyani** | Backend & Database Developer |
 | **Rimsha Amjad** | Quality Assurance & Documentation Lead |
 
 ---
