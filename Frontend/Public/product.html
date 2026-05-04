@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - ShopWave</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        .product-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        @media (max-width: 768px) {
+            .product-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .product-image img {
+            width: 100%;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .product-info h1 {
+            font-size: 2.25rem;
+            font-weight: 800;
+            color: #111827;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+        }
+
+        .product-price {
+            font-size: 2rem;
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .product-meta {
+            margin-bottom: 2rem;
+            color: #4b5563;
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        .product-meta p {
+            margin-bottom: 0.5rem;
+        }
+
+        .stock-status {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            background-color: #dcfce7;
+            color: #166534;
+            margin-bottom: 1.5rem;
+        }
+
+        .out-of-stock {
+            background-color: #fee2e2;
+            color: #991b1b;
+        }
+
+        .btn-lg {
+            padding: 1rem 2rem;
+            font-size: 1.125rem;
+            width: 100%;
+        }
+
+        .reviews-section {
+            margin-top: 4rem;
+            padding-top: 3rem;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .review-card {
+            background: white;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-radius: 0.75rem;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .star-rating {
+            color: #fbbf24;
+            letter-spacing: 2px;
+            font-size: 1.1rem;
+        }
+
+        .add-review-form {
+            background: #f9fafb;
+            padding: 2rem;
+            border-radius: 1rem;
+            margin-top: 3rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #374151;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container nav-content">
+            <a href="/" class="logo">ShopWave</a>
+            <ul class="nav-links">
+                <li><a href="/" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About Us</a></li>
+                <li><a href="contact.html" class="nav-link">Contact Us</a></li>
+                <li><a href="orders.html" class="nav-link">My Orders</a></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="cart.html" class="btn btn-outline">Cart <span id="cart-count">(0)</span></a>
+                <div id="auth-buttons">
+                    <a href="login.html" class="btn btn-primary">Login</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="product-container" id="product-details">
+            <div style="grid-column: 1/-1; text-align: center; padding: 4rem;">
+                <p style="color: #6b7280;">Loading product details...</p>
+            </div>
+        </div>
+
+        <div class="reviews-section">
+            <h2 class="section-title">Customer Reviews</h2>
+            <div id="reviews-list">
+                <!-- Reviews will be loaded here -->
+            </div>
+
+            <div class="add-review-form" id="review-form-container" style="display: none;">
+                <h3 style="margin-bottom: 1.5rem; font-size: 1.5rem; font-weight: 700;">Write a Review</h3>
+                <form id="review-form">
+                    <div class="form-group">
+                        <label class="form-label">Rating</label>
+                        <select id="rating" class="form-input" required>
+                            <option value="5">⭐⭐⭐⭐⭐ (5)</option>
+                            <option value="4">⭐⭐⭐⭐ (4)</option>
+                            <option value="3">⭐⭐⭐ (3)</option>
+                            <option value="2">⭐⭐ (2)</option>
+                            <option value="1">⭐ (1)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Your Review</label>
+                        <textarea id="comment" class="form-input" rows="4" required
+                            placeholder="Share your thoughts about this product..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit Review</button>
+                </form>
+            </div>
+            <p id="login-to-review" style="display: none; margin-top: 2rem; text-align: center;">
+                <a href="login.html" style="color: var(--primary-color); font-weight: 600;">Login</a> to write a
+                review.
+            </p>
+        </div>
+    </main>
+
+    <footer style="background: #f9fafb; padding: 2rem 0; margin-top: 4rem; border-top: 1px solid #e5e7eb;">
+        <div class="container" style="text-align: center; color: #6b7280; font-size: 0.875rem;">
+            <p>&copy; 2025 ShopWave. All rights reserved.</p>
+            <div style="margin-top: 1rem;">
+                <a href="seller-login.html" style="color: var(--primary-color); text-decoration: none;">Seller
+                    Login</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = urlParams.get('id');
+        const user = JSON.parse(localStorage.getItem('user'));
+
+        // Navbar Auth Logic
+        const authButtons = document.getElementById('auth-buttons');
+        if (user) {
+            authButtons.innerHTML = `
+                <span style="margin-right: 1rem; font-weight: 500;">Hi, ${user.NAME}</span>
+                <button onclick="logout()" class="btn btn-outline">Logout</button>
+            `;
+            document.getElementById('review-form-container').style.display = 'block';
+        } else {
+            authButtons.innerHTML = `<a href="login.html" class="btn btn-primary">Login</a>`;
+            document.getElementById('login-to-review').style.display = 'block';
+        }
+
+        // Update Cart Count
+        async function updateCartCount() {
+            if (!user) return;
+            try {
+                const res = await fetch(`/api/cart/${user.CUSTOMER_ID}`);
+                const items = await res.json();
+                const count = items.reduce((acc, item) => acc + item.QUANTITY, 0);
+                document.getElementById('cart-count').innerText = `(${count})`;
+            } catch (err) {
+                console.error(err);
+            }
+        }
+        updateCartCount();
+
+        function logout() {
+            localStorage.removeItem('user');
+            window.location.reload();
+        }
+
+        async function loadProduct() {
+            try {
+                const response = await fetch(`/api/products/${productId}`);
+                const product = await response.json();
+
+                if (product.error) {
+                    document.getElementById('product-details').innerHTML = `
+                        <div style="grid-column: 1/-1; text-align: center; padding: 4rem;">
+                            <p style="color: #ef4444;">${product.error}</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                document.getElementById('product-details').innerHTML = `
+                    <div class="product-image">
+                        <img src="${product.IMAGE_URL || 'https://via.placeholder.com/500'}" alt="${product.NAME}">
+                    </div>
+                    <div class="product-info">
+                        <h1>${product.NAME}</h1>
+                        <p class="product-price">$${product.PRICE.toFixed(2)}</p>
+                        <div class="product-meta">
+                            <p style="font-size: 1.05rem; line-height: 1.6; color: #374151; margin-bottom: 1.5rem;">${product.DESCRIPTION || 'No description available.'}</p>
+                            <p><strong>Brand:</strong> ${product.BRAND || 'Generic'}</p>
+                            <p><strong>Category:</strong> ${product.CATEGORY_NAME}</p>
+                            <p><strong>Seller:</strong> ${product.SELLER_NAME}</p>
+                        </div>
+                        <div style="margin-bottom: 2rem;">
+                            <span class="${product.STOCK_QUANTITY > 0 ? 'stock-status' : 'stock-status out-of-stock'}">
+                                ${product.STOCK_QUANTITY > 0 ? `In Stock (${product.STOCK_QUANTITY})` : 'Out of Stock'}
+                            </span>
+                        </div>
+                        <button class="btn btn-primary btn-lg" onclick="addToCart(${product.PRODUCT_ID})" ${product.STOCK_QUANTITY > 0 ? '' : 'disabled'}>
+                            ${product.STOCK_QUANTITY > 0 ? 'Add to Cart' : 'Out of Stock'}
+                        </button>
+                    </div>
+                `;
+            } catch (err) {
+                console.error(err);
+                document.getElementById('product-details').innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; padding: 4rem;">
+                        <p style="color: #ef4444;">Failed to load product details.</p>
+                    </div>
+                `;
+            }
+        }
+
+        async function loadReviews() {
+            try {
+                const response = await fetch(`/api/reviews/${productId}`);
+                const reviews = await response.json();
+                const container = document.getElementById('reviews-list');
+
+                if (reviews.length === 0) {
+                    container.innerHTML = '<p style="color: #6b7280; font-style: italic;">No reviews yet. Be the first to review!</p>';
+                    return;
+                }
+
+                container.innerHTML = reviews.map(r => `
+                    <div class="review-card">
+                        <div class="review-header">
+                            <strong style="font-size: 1.1rem; color: #111827;">${r.CUSTOMER_NAME}</strong>
+                            <span class="star-rating">${'★'.repeat(r.RATING)}${'☆'.repeat(5 - r.RATING)}</span>
+                        </div>
+                        <p style="color: #4b5563; line-height: 1.6;">${r.COMMENT_TEXT}</p>
+                        <small style="color: #9ca3af; display: block; margin-top: 0.5rem;">${new Date(r.REVIEW_DATE).toLocaleDateString()}</small>
+                    </div>
+                `).join('');
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        document.getElementById('review-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (!user) return alert('Please login first');
+
+            const rating = document.getElementById('rating').value;
+            const comment = document.getElementById('comment').value;
+
+            try {
+                const response = await fetch('/api/reviews', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        product_id: productId,
+                        customer_id: user.CUSTOMER_ID,
+                        rating,
+                        comment_text: comment
+                    })
+                });
+
+                if (response.ok) {
+                    alert('Review submitted!');
+                    location.reload();
+                } else {
+                    alert('Failed to submit review');
+                }
+            } catch (err) {
+                console.error(err);
+            }
+        });
+
+        async function addToCart(productId) {
+            if (!user) {
+                alert('Please login to add items to cart');
+                window.location.href = 'login.html';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/cart/add', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        customer_id: user.CUSTOMER_ID,
+                        product_id: productId,
+                        quantity: 1
+                    })
+                });
+
+                if (response.ok) {
+                    alert('Added to cart!');
+                    updateCartCount();
+                } else {
+                    alert('Failed to add to cart');
+                }
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        if (productId) {
+            loadProduct();
+            loadReviews();
+        } else {
+            document.getElementById('product-details').innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 4rem;"><p style="color: #ef4444;">Product not found</p></div>';
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seller Login - ShopWave</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container nav-content">
+            <a href="/" class="logo">ShopWave Seller</a>
+            <ul class="nav-links">
+                <li><a href="/" class="nav-link">Back to Shop</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container" style="display: flex; justify-content: center; align-items: center; min-height: 80vh;">
+        <div class="form-container">
+            <h2 style="text-align: center; margin-bottom: 2rem;">Seller Portal</h2>
+
+            <form id="seller-login-form">
+                <div class="form-group">
+                    <label class="form-label">Username</label>
+                    <input type="text" id="username" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input type="password" id="password" class="form-input" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Login to Dashboard</button>
+            </form>
+            <div style="text-align: center; margin-top: 1rem;">
+                <a href="seller-register.html" style="color: var(--primary-color); text-decoration: none;">Register as
+                    new Seller</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('seller-login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                const res = await fetch('/api/sellers/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+                const data = await res.json();
+
+                if (res.ok) {
+                    localStorage.setItem('seller', JSON.stringify(data.seller));
+                    window.location.href = 'seller.html';
+                } else {
+                    alert(data.error);
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Login failed');
+            }
+        });
+    </script>
+</body>
+
+</html>

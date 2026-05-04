@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seller Registration - ShopWave</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container nav-content">
+            <a href="/" class="logo">ShopWave Seller</a>
+            <ul class="nav-links">
+                <li><a href="seller-login.html" class="nav-link">Login</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container" style="display: flex; justify-content: center; align-items: center; min-height: 80vh;">
+        <div class="form-container">
+            <h2 style="text-align: center; margin-bottom: 2rem;">Register as Seller</h2>
+
+            <form id="seller-register-form">
+                <div class="form-group">
+                    <label class="form-label">Business Name</label>
+                    <input type="text" id="name" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Phone</label>
+                    <input type="text" id="phone" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Username</label>
+                    <input type="text" id="username" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input type="password" id="password" class="form-input" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Register</button>
+            </form>
+            <div style="text-align: center; margin-top: 1rem;">
+                <a href="seller-login.html" style="color: var(--primary-color); text-decoration: none;">Already have an
+                    account? Login</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('seller-register-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                const res = await fetch('/api/sellers/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, phone, username, password })
+                });
+                const data = await res.json();
+
+                if (res.ok) {
+                    alert('Registration successful! Please login.');
+                    window.location.href = 'seller-login.html';
+                } else {
+                    alert(data.error || 'Registration failed');
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Registration failed');
+            }
+        });
+    </script>
+</body>
+
+</html>
