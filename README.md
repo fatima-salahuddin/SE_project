@@ -13,10 +13,6 @@ A web marketplace that connects sellers and customers: sellers list and manage s
 add to cart, check out and review, and every order is kept consistent by the database itself. Built for
 the Software Engineering course at FAST-NUCES Karachi, with a full requirements and design document set.
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/fatima-salahuddin/portfolio/main/public/ecommerce.png" alt="Storefront screenshot" width="85%">
-</p>
-
 ## Highlights
 
 - **Three roles:** customer, seller and admin, each with their own pages and login
